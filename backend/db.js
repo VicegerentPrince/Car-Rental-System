@@ -19,6 +19,9 @@ async function getPool() {
   if (!pool) {
     pool = await new sql.ConnectionPool(config).connect();
     console.log('✅ Connected to MS SQL Server');
+    if (pool.error) {
+      console.error('❌ Connection error:', pool.error);
+    }
   }
   return pool;
 }

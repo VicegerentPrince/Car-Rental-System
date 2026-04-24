@@ -15,30 +15,30 @@ export default function AddVehiclePage() {
   };
 
   return (
-    <div className="p-8">
+    <div className="p-8 lg:p-12 max-w-4xl mx-auto">
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-10">
         <Link
           href="/vehicles"
-          className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-700 mb-5"
+          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-white mb-8 transition-colors group"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
           Back to Vehicles
         </Link>
 
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
-            <Car className="w-5 h-5 text-blue-600" />
+        <div className="flex items-center gap-5">
+          <div className="w-14 h-14 bg-gradient-to-br from-rose-500/20 via-blue-500/20 to-blue-600/20 border border-rose-500/30 rounded-2xl flex items-center justify-center shadow-glow-rose backdrop-blur-md">
+            <Car className="w-6 h-6 text-rose-400" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Add New Vehicle</h1>
-            <p className="text-gray-500 text-sm mt-0.5">Register a new vehicle to your fleet</p>
+            <h1 className="text-3xl font-extrabold text-white tracking-tight">Add New Vehicle</h1>
+            <p className="text-slate-400 text-sm font-medium mt-1 tracking-wide">Register a new vehicle to the fleet database.</p>
           </div>
         </div>
       </div>
 
-      {/* Form */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-7 max-w-3xl">
+      {/* Form wrapper */}
+      <div className="bg-white/[0.02] backdrop-blur-xl rounded-3xl border border-white/[0.05] p-8 md:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
         <VehicleForm onSubmit={handleSubmit} />
       </div>
     </div>

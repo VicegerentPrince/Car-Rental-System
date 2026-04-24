@@ -7,9 +7,9 @@ const STATUSES = ['Available', 'Rented', 'Service'];
 const COLORS   = ['Black', 'White', 'Silver', 'Gray', 'Red', 'Blue', 'Green', 'Yellow', 'Orange', 'Brown'];
 
 const STATUS_ACTIVE = {
-  Available: 'bg-emerald-600 text-white border-emerald-600',
-  Rented:    'bg-blue-600   text-white border-blue-600',
-  Service:   'bg-amber-500  text-white border-amber-500',
+  Available: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40 shadow-glow-emerald',
+  Rented:    'bg-blue-500/20   text-blue-400 border-blue-500/40 shadow-glow-blue',
+  Service:   'bg-amber-500/20  text-amber-400 border-amber-500/40 shadow-glow-amber',
 };
 
 export default function VehicleForm({ initialData = {}, onSubmit, isEdit = false }) {
@@ -51,27 +51,33 @@ export default function VehicleForm({ initialData = {}, onSubmit, isEdit = false
   };
 
   const inputCls =
-    'w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder-gray-300';
+    'w-full border border-white/[0.08] rounded-xl px-4 py-3 text-sm bg-black/40 text-white focus:outline-none focus:ring-2 focus:ring-rose-500/50 focus:border-rose-500/50 transition-all placeholder-slate-600 backdrop-blur-md font-medium';
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
+    <form onSubmit={handleSubmit} className="space-y-10">
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm font-medium">
+        <div className="bg-red-500/10 border border-red-500/30 text-red-400 px-5 py-4 rounded-xl text-sm font-semibold shadow-[0_0_15px_rgba(239,68,68,0.1)]">
           {error}
         </div>
       )}
 
       {/* Section: Identity */}
-      <div>
-        <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">
-          Vehicle Identity
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div className="bg-white/[0.01] border border-white/[0.03] p-6 rounded-2xl">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-8 h-8 rounded-lg bg-rose-500/20 flex items-center justify-center border border-rose-500/30">
+            <span className="text-rose-400 font-bold text-xs">01</span>
+          </div>
+          <h2 className="text-sm font-bold text-white uppercase tracking-widest">
+            Vehicle Identity
+          </h2>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {!isEdit && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                Vehicle ID <span className="text-red-400">*</span>
-                <span className="text-gray-400 font-normal ml-1 text-xs">(exactly 4 chars, e.g. V001)</span>
+              <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
+                Vehicle ID <span className="text-rose-400">*</span>
+                <span className="text-slate-600 font-normal ml-2 text-[10px] lowercase tracking-normal">(exactly 4 chars)</span>
               </label>
               <input
                 name="vehicleId"
@@ -87,8 +93,8 @@ export default function VehicleForm({ initialData = {}, onSubmit, isEdit = false
           )}
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
-              Make <span className="text-red-400">*</span>
+            <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
+              Make <span className="text-rose-400">*</span>
             </label>
             <input
               name="make"
@@ -102,8 +108,8 @@ export default function VehicleForm({ initialData = {}, onSubmit, isEdit = false
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
-              Model <span className="text-red-400">*</span>
+            <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
+              Model <span className="text-rose-400">*</span>
             </label>
             <input
               name="model"
@@ -117,8 +123,8 @@ export default function VehicleForm({ initialData = {}, onSubmit, isEdit = false
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
-              Manufacture Year <span className="text-red-400">*</span>
+            <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
+              Manufacture Year <span className="text-rose-400">*</span>
             </label>
             <input
               name="manufactureYear"
@@ -126,14 +132,14 @@ export default function VehicleForm({ initialData = {}, onSubmit, isEdit = false
               onChange={set}
               required
               maxLength={4}
-              placeholder="2022"
+              placeholder="2024"
               className={inputCls}
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
-              License Plate <span className="text-red-400">*</span>
+            <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
+              License Plate <span className="text-rose-400">*</span>
             </label>
             <input
               name="licensePlate"
@@ -147,19 +153,19 @@ export default function VehicleForm({ initialData = {}, onSubmit, isEdit = false
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
-              Color <span className="text-red-400">*</span>
+            <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
+              Color <span className="text-rose-400">*</span>
             </label>
             <select
               name="color"
               value={form.color}
               onChange={set}
               required
-              className={inputCls}
+              className={`${inputCls} appearance-none`}
             >
-              <option value="">Select a color</option>
+              <option value="" className="bg-slate-900 text-slate-400">Select a color</option>
               {COLORS.map(c => (
-                <option key={c} value={c}>{c}</option>
+                <option key={c} value={c} className="bg-slate-900 text-white">{c}</option>
               ))}
             </select>
           </div>
@@ -167,14 +173,19 @@ export default function VehicleForm({ initialData = {}, onSubmit, isEdit = false
       </div>
 
       {/* Section: Financials & Metrics */}
-      <div>
-        <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">
-          Financials & Metrics
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div className="bg-white/[0.01] border border-white/[0.03] p-6 rounded-2xl">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center border border-blue-500/30">
+            <span className="text-blue-400 font-bold text-xs">02</span>
+          </div>
+          <h2 className="text-sm font-bold text-white uppercase tracking-widest">
+            Financials & Metrics
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
-              Mileage <span className="text-red-400">*</span>
+            <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
+              Mileage <span className="text-rose-400">*</span>
             </label>
             <div className="relative">
               <input
@@ -186,18 +197,18 @@ export default function VehicleForm({ initialData = {}, onSubmit, isEdit = false
                 min="0"
                 step="0.1"
                 placeholder="15000"
-                className={`${inputCls} pr-10`}
+                className={`${inputCls} pr-12 font-mono`}
               />
-              <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs font-medium">mi</span>
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 text-xs font-bold uppercase">mi</span>
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
-              Daily Rent Rate <span className="text-red-400">*</span>
+            <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
+              Daily Rent Rate <span className="text-rose-400">*</span>
             </label>
             <div className="relative">
-              <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm font-medium">$</span>
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm font-bold">$</span>
               <input
                 name="dailyRentRate"
                 type="number"
@@ -207,7 +218,7 @@ export default function VehicleForm({ initialData = {}, onSubmit, isEdit = false
                 min="0"
                 step="0.01"
                 placeholder="59.99"
-                className={`${inputCls} pl-8`}
+                className={`${inputCls} pl-9 font-mono`}
               />
             </div>
           </div>
@@ -215,25 +226,30 @@ export default function VehicleForm({ initialData = {}, onSubmit, isEdit = false
       </div>
 
       {/* Section: Status & Service */}
-      <div>
-        <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">
-          Status & Service
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div className="bg-white/[0.01] border border-white/[0.03] p-6 rounded-2xl">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center border border-emerald-500/30">
+            <span className="text-emerald-400 font-bold text-xs">03</span>
+          </div>
+          <h2 className="text-sm font-bold text-white uppercase tracking-widest">
+            Status & Service
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Status <span className="text-red-400">*</span>
+            <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">
+              Status <span className="text-rose-400">*</span>
             </label>
-            <div className="flex gap-2">
+            <div className="flex gap-3">
               {STATUSES.map(s => (
                 <button
                   key={s}
                   type="button"
                   onClick={() => setForm(p => ({ ...p, status: s }))}
-                  className={`flex-1 py-2.5 text-sm font-semibold rounded-xl border transition-all ${
+                  className={`flex-1 py-3 text-xs font-bold uppercase tracking-wider rounded-xl border transition-all duration-300 ${
                     form.status === s
                       ? STATUS_ACTIVE[s]
-                      : 'bg-white text-gray-500 border-gray-200 hover:bg-gray-50'
+                      : 'bg-white/[0.02] text-slate-400 border-white/[0.05] hover:bg-white/[0.05] hover:text-white'
                   }`}
                 >
                   {s}
@@ -243,14 +259,16 @@ export default function VehicleForm({ initialData = {}, onSubmit, isEdit = false
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+            <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
               Last Service Date
             </label>
+            {/* Tailwind dark mode date inputs sometimes need color-scheme: dark to show up cleanly. We'll use a wrapper style. */}
             <input
               name="lastServiceDate"
               type="date"
               value={form.lastServiceDate}
               onChange={set}
+              style={{ colorScheme: 'dark' }}
               className={inputCls}
             />
           </div>
@@ -258,18 +276,18 @@ export default function VehicleForm({ initialData = {}, onSubmit, isEdit = false
       </div>
 
       {/* Actions */}
-      <div className="flex items-center gap-3 pt-2 border-t border-gray-100">
+      <div className="flex items-center gap-4 pt-4 border-t border-white/[0.05]">
         <button
           type="submit"
           disabled={loading}
-          className="px-6 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-sm shadow-blue-600/20"
+          className="px-8 py-3.5 bg-gradient-to-r from-rose-500 via-blue-500 to-blue-600 text-white text-sm font-bold uppercase tracking-wider rounded-xl hover:from-rose-400 hover:via-blue-400 hover:to-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 shadow-glow-rose hover:scale-[1.02]"
         >
-          {loading ? 'Saving...' : isEdit ? 'Update Vehicle' : 'Add Vehicle'}
+          {loading ? 'Saving Data...' : isEdit ? 'Update Vehicle' : 'Add Vehicle'}
         </button>
         <button
           type="button"
           onClick={() => router.back()}
-          className="px-6 py-2.5 bg-white text-gray-600 text-sm font-semibold rounded-xl border border-gray-200 hover:bg-gray-50 transition-colors"
+          className="px-8 py-3.5 bg-white/[0.02] text-slate-300 text-sm font-bold uppercase tracking-wider rounded-xl border border-white/[0.05] hover:bg-white/[0.05] hover:text-white transition-all duration-300"
         >
           Cancel
         </button>

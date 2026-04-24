@@ -26,7 +26,7 @@ export default function VehicleDetailPage() {
   }, [id]);
 
   const handleDelete = async () => {
-    if (!confirm('Delete this vehicle? This cannot be undone.')) return;
+    if (!confirm('Delete this vehicle? This action cannot be undone.')) return;
     try {
       await deleteVehicle(id);
       router.push('/vehicles');
@@ -36,18 +36,18 @@ export default function VehicleDetailPage() {
   };
 
   if (loading) return (
-    <div className="p-8">
-      <div className="text-center py-24">
-        <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-        <p className="text-gray-400 text-sm">Loading vehicle details...</p>
+    <div className="p-8 lg:p-12">
+      <div className="text-center py-32">
+        <div className="w-12 h-12 border-[3px] border-rose-500 border-t-transparent rounded-full animate-spin mx-auto mb-6 shadow-glow-rose" />
+        <p className="text-slate-400 text-sm font-bold uppercase tracking-widest animate-pulse">Loading vehicle details...</p>
       </div>
     </div>
   );
 
   if (error) return (
-    <div className="p-8">
-      <div className="bg-red-50 border border-red-200 text-red-700 px-5 py-4 rounded-xl">
-        {error}
+    <div className="p-8 lg:p-12">
+      <div className="bg-red-500/10 border border-red-500/20 text-red-400 px-6 py-5 rounded-2xl max-w-xl shadow-[0_0_20px_rgba(239,68,68,0.1)]">
+        <p className="font-bold">{error}</p>
       </div>
     </div>
   );
@@ -55,40 +55,41 @@ export default function VehicleDetailPage() {
   if (!vehicle) return null;
 
   return (
-    <div className="p-8">
+    <div className="p-8 lg:p-12 max-w-6xl mx-auto">
       {/* Back */}
       <Link
         href="/vehicles"
-        className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-700 mb-6"
+        className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-white mb-10 transition-colors group"
       >
-        <ArrowLeft className="w-4 h-4" />
-        All Vehicles
+        <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+        Return to Fleet
       </Link>
 
       {/* Title bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-7">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
             {vehicle.make} {vehicle.model}
           </h1>
-          <div className="flex items-center gap-3 mt-2">
+          <div className="flex flex-wrap items-center gap-4">
             <StatusBadge status={vehicle.status} />
-            <span className="text-gray-400 text-sm">
-              ID: <span className="font-mono font-semibold text-gray-600">{vehicle.vehicleId}</span>
+            <div className="w-1.5 h-1.5 rounded-full bg-slate-700" />
+            <span className="text-slate-400 text-sm uppercase tracking-wider font-bold shadow-sm">
+              ID: <span className="font-mono text-slate-200 bg-white/[0.05] border border-white/[0.1] px-2 py-0.5 rounded-md ml-1">{vehicle.vehicleId}</span>
             </span>
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-3">
           <Link
             href={`/vehicles/${id}/edit`}
-            className="flex items-center gap-2 px-4 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700 transition-colors shadow-sm shadow-blue-600/20"
+            className="flex items-center gap-2.5 px-6 py-3.5 bg-white/[0.02] text-white text-sm font-bold uppercase tracking-wider rounded-xl border border-white/[0.05] hover:bg-white/[0.08] transition-all hover:-translate-y-0.5"
           >
-            <Edit2 className="w-4 h-4" />
+            <Edit2 className="w-4 h-4 text-blue-400" />
             Edit
           </Link>
           <button
             onClick={handleDelete}
-            className="flex items-center gap-2 px-4 py-2.5 bg-red-600 text-white text-sm font-semibold rounded-xl hover:bg-red-700 transition-colors shadow-sm shadow-red-600/20"
+            className="flex items-center gap-2.5 px-6 py-3.5 bg-red-500/10 border border-red-500/20 text-red-400 text-sm font-bold uppercase tracking-wider rounded-xl hover:bg-red-500/20 transition-all shadow-[0_0_15px_rgba(239,68,68,0.1)] hover:-translate-y-0.5"
           >
             <Trash2 className="w-4 h-4" />
             Delete
@@ -97,31 +98,37 @@ export default function VehicleDetailPage() {
       </div>
 
       {/* Hero card */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-6">
-        <div className="bg-gradient-to-br from-slate-800 to-slate-700 px-7 py-8 flex items-center gap-5">
-          <div className="w-16 h-16 bg-white/10 backdrop-blur rounded-2xl flex items-center justify-center flex-shrink-0">
-            <Car className="w-8 h-8 text-white" />
-          </div>
-          <div>
-            <h2 className="text-white text-2xl font-bold">{vehicle.make} {vehicle.model}</h2>
-            <p className="text-slate-300 mt-1">{vehicle.manufactureYear} model · {vehicle.color}</p>
+      <div className="bg-white/[0.02] backdrop-blur-xl rounded-3xl border border-white/[0.05] overflow-hidden mb-12 shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
+        <div className="bg-gradient-to-r from-rose-500/30 via-blue-500/20 to-blue-600/10 p-[1px]">
+          <div className="bg-gradient-to-br from-[#1E1E28]/90 to-[#121218]/90 px-8 py-10 md:px-12 md:py-14 flex items-center gap-8 relative overflow-hidden rounded-[23px]">
+            {/* Subtle light effect */}
+            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-rose-500/20 rounded-full blur-[100px] pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-600/10 rounded-full blur-[80px] pointer-events-none" />
+
+            <div className="w-24 h-24 md:w-32 md:h-32 bg-white/[0.03] border border-white/[0.1] backdrop-blur-xl rounded-3xl flex items-center justify-center flex-shrink-0 shadow-[0_0_40px_rgba(255,255,255,0.05)] relative z-10">
+              <Car className="w-12 h-12 md:w-16 md:h-16 text-slate-300" />
+            </div>
+            <div className="relative z-10">
+              <h2 className="text-white text-3xl md:text-4xl font-extrabold tracking-tight">{vehicle.make} {vehicle.model}</h2>
+              <p className="text-slate-400 mt-3 text-lg font-medium tracking-wide">{vehicle.manufactureYear} Model · <span className="text-slate-300 font-bold">{vehicle.color}</span></p>
+            </div>
           </div>
         </div>
 
         {/* Detail grid */}
-        <div className="p-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="p-8 md:p-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-8">
           <Field icon={Hash}       label="Vehicle ID"     value={vehicle.vehicleId}            mono />
           <Field icon={Tag}        label="License Plate"  value={vehicle.licensePlate}         mono />
           <Field icon={Palette}    label="Color"          value={vehicle.color} />
           <Field
             icon={Gauge}
             label="Mileage"
-            value={`${Number(vehicle.mileage).toLocaleString()} miles`}
+            value={<>{Number(vehicle.mileage).toLocaleString()} <span className="text-slate-500 text-sm">mi</span></>}
           />
           <Field
             icon={DollarSign}
             label="Daily Rate"
-            value={`$${Number(vehicle.dailyRentRate).toFixed(2)} / day`}
+            value={<span className="text-3xl">${Number(vehicle.dailyRentRate).toFixed(2)}<span className="text-slate-500 text-sm ml-1 uppercase tracking-wider font-bold">/ day</span></span>}
             highlight
           />
           <Field
@@ -143,13 +150,13 @@ export default function VehicleDetailPage() {
 
 function Field({ icon: Icon, label, value, mono, highlight }) {
   return (
-    <div className="flex items-start gap-3">
-      <div className="w-9 h-9 bg-gray-50 border border-gray-100 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
-        <Icon className="w-4 h-4 text-gray-400" />
+    <div className="flex items-start gap-5">
+      <div className={`w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 border ${highlight ? 'bg-rose-500/20 border-rose-500/30 shadow-glow-rose text-rose-400' : 'bg-white/[0.03] border-white/[0.05] text-slate-400'}`}>
+        <Icon className="w-5 h-5" />
       </div>
       <div>
-        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">{label}</p>
-        <p className={`mt-0.5 font-semibold ${mono ? 'font-mono' : ''} ${highlight ? 'text-blue-600 text-lg' : 'text-gray-800'}`}>
+        <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">{label}</p>
+        <p className={`font-medium tracking-wide ${mono ? 'font-mono text-lg text-slate-200' : ''} ${highlight ? 'text-white font-extrabold' : 'text-slate-200 text-lg'}`}>
           {value}
         </p>
       </div>
